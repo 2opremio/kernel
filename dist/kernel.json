@@ -90,6 +90,11 @@
       "Description": "SSL certificate",
       "Default": ""
     },
+    "IamEc2Actions": {
+      "Type": "CommaDelimitedList",
+      "Description": "Additional allowed IAM Actions",
+      "Default": ""
+    },
     "Development": {
       "Type": "String",
       "Description": "Development mode",
@@ -400,6 +405,21 @@
                     "ecs:Submit*",
                     "kinesis:PutRecords"
                   ],
+                  "Resource": [
+                    "*"
+                  ]
+                }
+              ]
+            }
+          },
+	  {
+            "PolicyName": "CustomUserRole",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": { "Ref": "IamEc2Actions" },
                   "Resource": [
                     "*"
                   ]
