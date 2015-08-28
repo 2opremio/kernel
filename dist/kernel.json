@@ -470,12 +470,10 @@
               { "Fn::Join": [ "", [ "echo 'OPTIONS=\"--insecure-registry=", { "Fn::Join": [ ":", [ { "Fn::GetAtt": [ "Balancer", "DNSName" ] }, "5000" ] ] }, " --host=unix:///var/run/docker.sock --host=0.0.0.0:2376\"' >> /etc/sysconfig/docker" ] ] },
               "echo 'OPTIONS=\"--host=unix:///var/run/docker.sock  --host=0.0.0.0:2376\"' >> /etc/sysconfig/docker"
             ] },
-            "service docker restart",
-            "docker start ecs-agent",
             "mkdir -p /etc/convox",
             { "Fn::Join": [ "", [ "echo \"", { "Ref": "AWS::Region" }, "\" > /etc/convox/region" ] ] },
             "curl -s http://convox.s3.amazonaws.com/agent/0.3/convox.conf > /etc/init/convox.conf",
-            "start convox"
+            "reboot"
           ] ] }
         }
       }
